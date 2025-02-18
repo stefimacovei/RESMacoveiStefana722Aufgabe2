@@ -31,8 +31,12 @@ public class Character {
     public void setId(int id){this.id=id;}
     public void setDiagnosis(String region){this.region=region;}
 
-    public String getDiagnosis() {
+    public String getRegion() {
         return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public int getId(){return  id;}

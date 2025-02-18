@@ -4,6 +4,8 @@ import repo.CharacterRepo;
 import repo.ProductRepo;
 import model.Product;
 import model.Character;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
@@ -43,7 +45,7 @@ public class Controller {
         for (Product product : productList){System.out.println(product);}
         //System.out.println(productRepo.getObjects());
     }
-    public void addCharacter(int id, String name, int age, String region,List<Product> charactericineList ){
+    public void addCharacter(int id, String name, String region,List<Product> charactericineList ){
         Character character=new Character(id, name, region, charactericineList);
         characterRepo.save(character);
     }
@@ -53,7 +55,7 @@ public class Controller {
             if(character.getId()==id){
                 character.setName(name);
                 character.setId(id);
-                character.setDiagnosis(region);
+                character.setRegion(region);
               
                 character.setProducts(charactericineList);
             }
@@ -68,6 +70,42 @@ public class Controller {
     public void deleteCharacter(int id){
         Character character2=characterRepo.getById(id);
         characterRepo.delete(character2);
+    }
+    public void filterRegion(String diagnosis){
+        List<Character> characterList=characterRepo.getObjects();
+        for (Character character : characterList){
+            if(character.getRegion().equals(diagnosis)) System.out.println(character);
+        }
+    }
+    public void showCharactersProductForRegion(String diagnosis){
+        List<Character> sortedOutput=new ArrayList<Character>();
+        List<Character> characterList=characterRepo.getObjects();
+        for (Character character : characterList){
+            List<Product> prodList=productRepo.getObjects();
+            for (Product prod : prodList){
+                if(prod.getRegion().equals(diagnosis)){sortedOutput.add(character);}
+            }
+        }
+        sortedOutput.sort((m1, m2) -> CharSequence.compare(m1.getRegion(), m2.getRegion()));
+        for(Character character:sortedOutput){System.out.println(character);}
+    }
+    public void sortProductList(String characterName, boolean ascending){
+        List<Character> characterientList=characterRepo.getObjects();
+        Character character = null;
+        boolean found=false;
+        for (Character character2 : characterientList){
+            if(character2.getName().equals(characterName)){character=character2;
+                found=true;}
+        }
+        if(!found){
+            System.out.println("Character not found.");
+            return;
+        }
+        List<Product> medList=character.getProducts();
+        medList.sort((m1, m2) -> ascending ? Integer.compare(m1.getPrice(), m2.getPrice()) : Integer.compare(m2.getPrice(), m1.getPrice()));
+        for(Character character2 : characterientList){
+            System.out.println(character2);
+        }
     }
 
 

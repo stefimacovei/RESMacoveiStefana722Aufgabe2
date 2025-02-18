@@ -22,13 +22,6 @@ public class Product {
         return price;
     }
 
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
 
     @Override
     public String toString() {
@@ -42,11 +35,11 @@ public class Product {
     public void setPrice(int Price) {
         this.price = Price;
     }
-    public String getIllness() {
+    public String getRegion() {
         return region;
     }
 
-    public void setIllness(String region) {
+    public void setRegion(String region) {
         this.region = region;
     }
     public int getId() {

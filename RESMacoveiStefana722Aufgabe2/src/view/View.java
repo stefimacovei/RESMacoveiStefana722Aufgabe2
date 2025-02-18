@@ -22,7 +22,7 @@ public class View {
         boolean continueLoop = true;
 
         while (continueLoop) {
-            System.out.print("Select an option:\n\n1. Enter a new character \n2. Update a character\n3. Delete character\n4. Show all characters\n5. Add a medication\n6. Update a medication\n7. Delete a medication\n8. SHow all medications\n9. Filter characters for specific diagnosis \n10. Filter thing\n11.Sorting thing \n0. Exit\n");
+            System.out.print("Select an option:\n\n1. Enter a new character \n2. Update a character\n3. Delete character\n4. Show all characters\n5. Add a product\n6. Update a product\n7. Delete a product\n8. SHow all medications\n9. Filter characters for specific region \n10. Filter thing\n11.Sorting thing \n0. Exit\n");
 
             String option = scanner.nextLine();
             Product med1=new Product("Nume1", 122, "ligma");
@@ -34,7 +34,7 @@ public class View {
                     continueLoop = false;
                     break;
                 case "1":
-                    controller.addCharacter(readId(scanner), readName(scanner), readAge(scanner), readRegion(scanner), readProducts(scanner));
+                    controller.addCharacter(readId(scanner), readName(scanner), readRegion(scanner), readProducts(scanner));
                     break;
                 case "2":
                     controller.updateCharacter(readId(scanner), readName(scanner), readAge(scanner), readRegion(scanner), readProducts(scanner));
@@ -58,13 +58,13 @@ public class View {
                     controller.showAllProducts();
                     break;
                 case "9":
-                    //controller.filterDiagnosis(readRegion(scanner));
+                    controller.filterRegion(readRegion(scanner));
                     break;
                 case "10":
-                    //controller.showPacientsProductForDisease(readRegion(scanner));
+                    controller.showCharactersProductForRegion(readRegion(scanner));
                     break;
                 case "11":
-                    //controller.sortProductList(readName(scanner), readSortingOrder(scanner));
+                    controller.sortProductList(readName(scanner), readSortingOrder(scanner));
                     break;
                 default:
             }
@@ -89,7 +89,7 @@ public class View {
         return scanner.nextLine();
     }
     private static String readRegion(Scanner scanner) {
-        System.out.println("Enter illness: ");
+        System.out.println("Enter region: ");
         return scanner.nextLine();
     }
     private static boolean readSortingOrder(Scanner scanner) {
@@ -107,7 +107,9 @@ public class View {
             for(Product m:allMeds){
                 if(m.getName().equals(nname)){med=m;break;}
             }
-            medicineList.add(med);
+            if(med != null)
+                medicineList.add(med);
+            else System.out.println("Didnt find med");
             nname=readName(scanner);
             if(nname.equals("0")) idk=false;
         }
